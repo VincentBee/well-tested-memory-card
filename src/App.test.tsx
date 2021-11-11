@@ -67,6 +67,18 @@ describe('Memory card game', () => {
         });
     })
 
+    describe('when finish the game', () => {
+
+        beforeEach(() => {
+            clickOnPlay();
+            clickOnCards([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+        });
+
+        it('should display a congratulation mesage when finish the game', () => {
+            expect(screen.getByText('congratulation')).toBeInTheDocument();
+        });
+    })
+
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
     const clickOnCard = (position: number) => {
         const card = getAllCards()[position - 1];
