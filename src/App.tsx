@@ -4,6 +4,22 @@ function App() {
     return (
         <>
             <button>play</button>
+            
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
+            <div data-testid="card"></div>
         </>
     );
 }
