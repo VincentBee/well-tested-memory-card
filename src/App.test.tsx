@@ -64,6 +64,15 @@ describe('Memory card game', () => {
             expectNotFoundCardCount().toEqual(10);
             expectFoundCardCount().toEqual(2);
         });
+
+        it('should not be possible to click on visible card', () => {
+            clickOnCard(1);
+            clickOnCard(2);
+            clickOnCard(3);
+            clickOnCard(2);
+            expectNotFoundCardCount().toEqual(10);
+            expectFoundCardCount().toEqual(2);
+        });
     })
 
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
