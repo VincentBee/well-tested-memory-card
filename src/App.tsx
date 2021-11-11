@@ -2,29 +2,46 @@ import { useState } from 'react';
 import './App.css';
 import { Card } from './Card';
 
+export const initialCardState = [
+    { value: 1 , visible: false },
+    { value: 1 , visible: false },
+    { value: 2 , visible: false },
+    { value: 2 , visible: false },
+    { value: 3 , visible: false },
+    { value: 3 , visible: false },
+    { value: 4 , visible: false },
+    { value: 4 , visible: false },
+    { value: 5 , visible: false },
+    { value: 5 , visible: false },
+    { value: 6 , visible: false },
+    { value: 6 , visible: false },
+]
+
 function App() {
     const [started, setStarted] = useState(false);
+    const [cards, setCards] = useState(initialCardState);
+
+    const play = (position: number): void => {
+        setCards(cards.map((card, index) => {
+            if (index === position) {
+                return { ...card, visible: true };
+            }
+            return card;
+        }))
+    }
 
     return (
         <>
             {!started && <button onClick={() => setStarted(true)}>play</button>}
             
-            {started && (
-                <>
-                    <Card value={1} />
-                    <Card value={1} />
-                    <Card value={2} />
-                    <Card value={2} />
-                    <Card value={3} />
-                    <Card value={3} />
-                    <Card value={4} />
-                    <Card value={4} />
-                    <Card value={5} />
-                    <Card value={5} />
-                    <Card value={6} />
-                    <Card value={6} />
-                </>
-            )}
+            {started && cards.map((card, position) => (
+                <Card
+                    key={position}
+                    value={card.value}
+                    visible={card.visible}
+                    onClick={() => play(position)}
+                />
+            ))}
         </>
     );
 }

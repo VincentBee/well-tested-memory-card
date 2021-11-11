@@ -40,8 +40,8 @@ describe('Memory card game', () => {
             const card = screen.queryAllByTestId('card')[1];
             expect(card).not.toBeNull();
             userEvent.click(card);
-            expect(screen.queryAllByText('?').length).toEqual(11);
-            expect(screen.queryAllByText('1').length).toEqual(1);
+            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length).toEqual(11);
+            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length).toEqual(1);
         })
     })
 
