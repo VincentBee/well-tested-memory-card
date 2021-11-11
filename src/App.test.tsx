@@ -43,35 +43,27 @@ describe('Memory card game', () => {
         })
 
         it('should makes previous cards not visible when fail finding pair', () => {
-            clickOnCard(1);
-            clickOnCard(3);
+            clickOnCards([1, 3]);
             expectNotFoundCardCount().toEqual(12);
             expectFoundCardCount().toEqual(0);
         });
 
         it('should makes previous cards visible when succeed finding pair', () => {
-            clickOnCard(1);
-            clickOnCard(2);
+            clickOnCards([1, 2]);
             expectNotFoundCardCount().toEqual(10);
             expectFoundCardCount().toEqual(2);
         });
 
         it('should keep validated card when fail finding an other pair', () => {
-            clickOnCard(1);
-            clickOnCard(2);
-            clickOnCard(3);
-            clickOnCard(5);
+            clickOnCards([1, 2, 3, 5]);
             expectNotFoundCardCount().toEqual(10);
             expectFoundCardCount().toEqual(2);
         });
 
         it('should not be possible to click on visible card', () => {
-            clickOnCard(1);
-            clickOnCard(2);
-            clickOnCard(3);
-            clickOnCard(2);
-            expectNotFoundCardCount().toEqual(10);
-            expectFoundCardCount().toEqual(2);
+            clickOnCards([1, 2, 3, 2]);
+            expectNotFoundCardCount().toEqual(9);
+            expectFoundCardCount().toEqual(3);
         });
     })
 
@@ -80,6 +72,9 @@ describe('Memory card game', () => {
         const card = getAllCards()[position - 1];
         expect(card).not.toBeNull();
         userEvent.click(card);
+    }
+    const clickOnCards = (positions: number[]) => {
+        positions.forEach(position => clickOnCard(position))
     }
     const expectFoundCardCount = () => expect(
         getAllCards().map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length
