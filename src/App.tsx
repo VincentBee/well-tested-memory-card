@@ -18,16 +18,24 @@ export const initialCardState = [
 ]
 
 function App() {
+    const [score, setScore] = useState(0);
     const [started, setStarted] = useState(false);
     const [cards, setCards] = useState(initialCardState);
 
     const play = (position: number): void => {
-        setCards(cards.map((card, index) => {
-            if (index === position) {
-                return { ...card, visible: true };
-            }
-            return card;
-        }))
+        if (score % 2 === 1) {
+            setCards(cards.map(card => {
+                return { ...card, visible: false };
+            }))
+        } else {
+            setCards(cards.map((card, index) => {
+                if (index === position) {
+                    return { ...card, visible: true };
+                }
+                return card;
+            }))
+        }
+        setScore(score + 1);
     }
 
     return (
