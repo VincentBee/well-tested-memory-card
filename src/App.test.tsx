@@ -26,5 +26,16 @@ describe('Memory card game', () => {
         expect(screen.queryByText('play')).toBeNull();
     });
 
+    describe('when the game is started', () => {
+
+        beforeEach(() => {
+            clickOnPlay();
+        })
+
+        it('should have only non visible cards', () => {
+            expect(screen.queryAllByText('?').length).toEqual(12);
+        })
+    })
+
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
 })
