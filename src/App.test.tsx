@@ -15,4 +15,9 @@ describe('Memory card game', () => {
         userEvent.click(screen.getByText('play'))
         expect(screen.getAllByTestId('card')).toHaveLength(12);
     });
+
+    it('should not display 12 non visible cards before start new game', () => {
+        render(<App />);
+        expect(screen.getAllByTestId('card')).toHaveLength(0);
+    });
 })
