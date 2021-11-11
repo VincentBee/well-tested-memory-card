@@ -14,7 +14,7 @@ describe('Memory card game', () => {
 
     it('should display cards when start new game', () => {
         clickOnPlay();
-        expect(screen.queryAllByTestId('card').length).toBeGreaterThan(0);
+        expect(getAllCards().length).toBeGreaterThan(0);
     });
 
     it('should not display cards before start new game', () => {
@@ -33,28 +33,34 @@ describe('Memory card game', () => {
         })
 
         it('should have only non visible cards', () => {
-            expect(screen.queryAllByText('?').length).toEqual(12);
+            expectNotFoundCardCount().toEqual(12);
         })
 
         it('should make a card visible when click on it', async () => {
-            const card = screen.queryAllByTestId('card')[1];
-            expect(card).not.toBeNull();
-            userEvent.click(card);
-            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length).toEqual(11);
-            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length).toEqual(1);
+            clickOnCard(1);
+            expectNotFoundCardCount().toEqual(11);
+            expectFoundCardCount().toEqual(1);
         })
 
         it('should makes previous cards not visible when fail finding pair', () => {
-            const card1 = screen.queryAllByTestId('card')[1];
-            expect(card1).not.toBeNull();
-            userEvent.click(card1);
-            const card2 = screen.queryAllByTestId('card')[3];
-            expect(card2).not.toBeNull();
-            userEvent.click(card2);
-            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length).toEqual(12);
-            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length).toEqual(0);
+            clickOnCard(1);
+            clickOnCard(3);
+            expectNotFoundCardCount().toEqual(12);
+            expectFoundCardCount().toEqual(0);
         });
     })
 
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
+    const clickOnCard = (position: number) => {
+        const card = getAllCards()[position];
+        expect(card).not.toBeNull();
+        userEvent.click(card);
+    }
+    const expectFoundCardCount = () => expect(
+        getAllCards().map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length
+        )
+    const expectNotFoundCardCount = () => expect(
+        getAllCards().map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length
+    )
+    const getAllCards = () => screen.queryAllByTestId('card');
 })
