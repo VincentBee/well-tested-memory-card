@@ -55,6 +55,15 @@ describe('Memory card game', () => {
             expectNotFoundCardCount().toEqual(10);
             expectFoundCardCount().toEqual(2);
         });
+
+        it('should keep validated card when fail finding an other pair', () => {
+            clickOnCard(1);
+            clickOnCard(2);
+            clickOnCard(3);
+            clickOnCard(5);
+            expectNotFoundCardCount().toEqual(10);
+            expectFoundCardCount().toEqual(2);
+        });
     })
 
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
