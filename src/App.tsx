@@ -66,6 +66,8 @@ function App() {
                     onClick={() => play(position)}
                 />
             ))}
+
+            <div>congratulation</div>
         </>
     );
 }
