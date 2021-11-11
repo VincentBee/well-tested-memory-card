@@ -23,6 +23,10 @@ function App() {
     const [cards, setCards] = useState(initialCardState);
 
     const play = (position: number): void => {
+        if (cards[position].visible) {
+            return;
+        }
+
         if (history.length % 2 === 1) {
             if (cards[history[history.length-1]].value === cards[position].value) {
                 setCards(cards.map((card, index) => {
