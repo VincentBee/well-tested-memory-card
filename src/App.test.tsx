@@ -48,11 +48,18 @@ describe('Memory card game', () => {
             expectNotFoundCardCount().toEqual(12);
             expectFoundCardCount().toEqual(0);
         });
+
+        it('should makes previous cards visible when succeed finding pair', () => {
+            clickOnCard(1);
+            clickOnCard(2);
+            expectNotFoundCardCount().toEqual(10);
+            expectFoundCardCount().toEqual(2);
+        });
     })
 
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
     const clickOnCard = (position: number) => {
-        const card = getAllCards()[position];
+        const card = getAllCards()[position - 1];
         expect(card).not.toBeNull();
         userEvent.click(card);
     }
