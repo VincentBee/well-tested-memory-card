@@ -3,27 +3,28 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe('Memory card game', () => {
+
+    beforeEach(() => {
+        render(<App />);
+    })
     
     it('should display a play button', () => {
-        render(<App />);
-        const linkElement = screen.getByText(/play/i);
-        expect(linkElement).toBeInTheDocument();
+        expect(screen.getByText('play')).toBeInTheDocument();
     });
 
-    it('should display 12 non visible cards when start new game', () => {
-        render(<App />);
-        userEvent.click(screen.getByText('play'))
-        expect(screen.getAllByTestId('card')).toHaveLength(12);
+    it('should display cards when start new game', () => {
+        clickOnPlay();
+        expect(screen.queryAllByTestId('card').length).toBeGreaterThan(0);
     });
 
-    it('should not display 12 non visible cards before start new game', () => {
-        render(<App />);
+    it('should not display cards before start new game', () => {
         expect(screen.queryByTestId('card')).toBeNull();
     });
 
     it('should not display play buton when game is started', () => {
-        render(<App />);
-        userEvent.click(screen.getByText('play'))
+        clickOnPlay();
         expect(screen.queryByText('play')).toBeNull();
     });
+
+    const clickOnPlay = () => userEvent.click(screen.getByText('play'))
 })
