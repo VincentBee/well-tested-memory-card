@@ -6,7 +6,7 @@ function App() {
 
     return (
         <>
-            <button onClick={() => setStarted(true)}>play</button>
+            {!started && <button onClick={() => setStarted(true)}>play</button>}
             
             {started && (
                 <>
