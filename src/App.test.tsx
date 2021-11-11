@@ -20,4 +20,10 @@ describe('Memory card game', () => {
         render(<App />);
         expect(screen.queryByTestId('card')).toBeNull();
     });
+
+    it('should not display play buton when game is started', () => {
+        render(<App />);
+        userEvent.click(screen.getByText('play'))
+        expect(screen.queryByText('play')).toBeNull();
+    });
 })
