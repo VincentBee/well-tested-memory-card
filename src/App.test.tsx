@@ -35,6 +35,14 @@ describe('Memory card game', () => {
         it('should have only non visible cards', () => {
             expect(screen.queryAllByText('?').length).toEqual(12);
         })
+
+        it('should make a card visible when click on it', async () => {
+            const card = screen.queryAllByTestId('card')[1];
+            expect(card).not.toBeNull();
+            userEvent.click(card);
+            expect(screen.queryAllByText('?').length).toEqual(11);
+            expect(screen.queryAllByText('1').length).toEqual(1);
+        })
     })
 
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
