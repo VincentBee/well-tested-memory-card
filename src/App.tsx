@@ -54,6 +54,10 @@ function App() {
         setHistory([...history, position]);
     }
 
+    const isWin = () => {
+        return cards.findIndex(card => !card.visible) === -1;
+    }
+
     return (
         <>
             {!started && <button onClick={() => setStarted(true)}>play</button>}
@@ -67,7 +71,7 @@ function App() {
                 />
             ))}
 
-            <div>congratulation</div>
+            {isWin() && <div>congratulation</div>}
         </>
     );
 }
