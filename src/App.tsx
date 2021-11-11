@@ -1,25 +1,32 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+    const [started, setStarted] = useState(false);
+
     return (
         <>
-            <button>play</button>
+            <button onClick={() => setStarted(true)}>play</button>
             
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
-            <div data-testid="card"></div>
+            {started && (
+                <>
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+        
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+        
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+        
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+                    <div data-testid="card"></div>
+                </>
+            )}
         </>
     );
 }
