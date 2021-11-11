@@ -18,13 +18,12 @@ export const initialCardState = [
 ]
 
 function App() {
-    const [score, setScore] = useState(0);
     const [history, setHistory] = useState<number[]>([]);
     const [started, setStarted] = useState(false);
     const [cards, setCards] = useState(initialCardState);
 
     const play = (position: number): void => {
-        if (score % 2 === 1) {
+        if (history.length % 2 === 1) {
             if (cards[history[history.length-1]].value === cards[position].value) {
                 setCards(cards.map((card, index) => {
                     if (index === position) {
@@ -48,7 +47,6 @@ function App() {
                 return card;
             }))
         }
-        setScore(score + 1);
         setHistory([...history, position]);
     }
 
