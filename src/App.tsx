@@ -19,14 +19,24 @@ export const initialCardState = [
 
 function App() {
     const [score, setScore] = useState(0);
+    const [previous, setPrevious] = useState(-1);
     const [started, setStarted] = useState(false);
     const [cards, setCards] = useState(initialCardState);
 
     const play = (position: number): void => {
         if (score % 2 === 1) {
-            setCards(cards.map(card => {
-                return { ...card, visible: false };
-            }))
+            if (previous === cards[position].value) {
+                setCards(cards.map((card, index) => {
+                    if (index === position) {
+                        return { ...card, visible: true };
+                    }
+                    return card;
+                }))
+            } else {
+                setCards(cards.map(card => {
+                    return { ...card, visible: false };
+                }))
+            }
         } else {
             setCards(cards.map((card, index) => {
                 if (index === position) {
@@ -36,6 +46,7 @@ function App() {
             }))
         }
         setScore(score + 1);
+        setPrevious(cards[position].value);
     }
 
     return (
