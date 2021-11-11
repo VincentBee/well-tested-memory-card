@@ -26,6 +26,10 @@ describe('Memory card game', () => {
         expect(screen.queryByText('play')).toBeNull();
     });
 
+    it('should not display a congratulation mesage until we finish the game', () => {
+        expect(screen.getByText('congratulation')).not.toBeInTheDocument();
+    });
+
     describe('when the game is started', () => {
 
         beforeEach(() => {
