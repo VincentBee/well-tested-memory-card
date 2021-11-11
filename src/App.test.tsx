@@ -43,6 +43,17 @@ describe('Memory card game', () => {
             expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length).toEqual(11);
             expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length).toEqual(1);
         })
+
+        it('should makes previous cards not visible when fail finding pair', () => {
+            const card1 = screen.queryAllByTestId('card')[1];
+            expect(card1).not.toBeNull();
+            userEvent.click(card1);
+            const card2 = screen.queryAllByTestId('card')[3];
+            expect(card2).not.toBeNull();
+            userEvent.click(card2);
+            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length).toEqual(12);
+            expect(screen.queryAllByTestId('card').map(element => element.classList).filter(elementClasses => elementClasses.contains('visible')).length).toEqual(0);
+        });
     })
 
     const clickOnPlay = () => userEvent.click(screen.getByText('play'))
