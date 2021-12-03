@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import App from './App';
+
+jest.setTimeout(30000);
 
 describe('Memory card game', () => {
 
@@ -46,8 +49,9 @@ describe('Memory card game', () => {
             expectFoundCardCount().toEqual(1);
         })
 
-        it('should makes previous cards not visible when fail finding pair', () => {
+        it('should makes previous cards not visible when fail finding pair', async () => {
             clickOnCards([1, 3]);
+            await sleep(3000);
             expectNotFoundCardCount().toEqual(12);
             expectFoundCardCount().toEqual(0);
         });
@@ -58,8 +62,9 @@ describe('Memory card game', () => {
             expectFoundCardCount().toEqual(2);
         });
 
-        it('should keep validated card when fail finding an other pair', () => {
+        it('should keep validated card when fail finding an other pair', async () => {
             clickOnCards([1, 2, 3, 5]);
+            await sleep(3000);
             expectNotFoundCardCount().toEqual(10);
             expectFoundCardCount().toEqual(2);
         });
@@ -68,6 +73,15 @@ describe('Memory card game', () => {
             clickOnCards([1, 2, 3, 2]);
             expectNotFoundCardCount().toEqual(9);
             expectFoundCardCount().toEqual(3);
+        });
+
+        it('should not be possible to click on card when the animation is not finished', async () => {
+            clickOnCards([1, 3]);
+            await sleep(1000);
+            clickOnCard(2);
+            await sleep(2000);
+            expectNotFoundCardCount().toEqual(12);
+            expectFoundCardCount().toEqual(0);
         });
     })
 
@@ -99,4 +113,7 @@ describe('Memory card game', () => {
         getAllCards().map(element => element.classList).filter(elementClasses => !elementClasses.contains('visible')).length
     )
     const getAllCards = () => screen.queryAllByTestId('card');
+    const sleep = (time: number) => act(async () => {
+        await new Promise((r) => setTimeout(r, time));
+    })
 })

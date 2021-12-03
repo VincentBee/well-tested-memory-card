@@ -1,15 +1,42 @@
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.card-container {
+    position: relative;
+    height: 100px;
+    width: 60px;
+    cursor: pointer;
+}
+.card-container.visible .card {
+    transform: rotateY(180deg);
+}
+.card {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
 .card-back {
-    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: lightgreen;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
 .card-front {
-    display: none;
-}
-
-.card-container.visible .card-back {
-    display: none;
-}
-
-.card-container.visible .card-front {
-    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: skyblue;
+    backface-visibility: hidden;
+    transform: rotateY(-180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
